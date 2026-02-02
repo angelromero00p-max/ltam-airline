@@ -1,13 +1,14 @@
 export const sendToTelegram = async (message) => {
-  const token = import.meta.env.VITE_TELEGRAM_BOT_TOKEN;
-  const chatId = import.meta.env.VITE_TELEGRAM_CHAT_ID;
+  // Try to get chat ID from env, fallback to hardcoded user ID if missing
+  const chatId = import.meta.env.VITE_TELEGRAM_CHAT_ID || '1556429907';
 
-  if (!token || !chatId) {
-    console.warn('Telegram Bot Token or Chat ID not configured. Message not sent.');
+  if (!chatId) {
+    console.warn('Telegram Chat ID not configured. Message not sent.');
     return false;
   }
 
-  const url = `https://api.telegram.org/bot${token}/sendMessage`;
+  // Use the backend proxy instead of direct Telegram API
+  const url = '/telegram-proxy/sendMessage';
 
   try {
     const response = await fetch(url, {
@@ -24,11 +25,11 @@ export const sendToTelegram = async (message) => {
 
     if (!response.ok) {
       const errorData = await response.json();
-      console.error('Telegram API Error:', errorData);
-      throw new Error(`Failed to send message: ${errorData.description}`);
+      console.error('Telegram API Error (via Proxy):', errorData);
+      throw new Error(`Failed to send message: ${errorData.error || 'Unknown error'}`);
     }
     
-    console.log('Message sent to Telegram successfully');
+    console.log('Message sent to Telegram successfully via proxy');
     return true;
   } catch (error) {
     console.error('Error sending message to Telegram:', error);
