@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 const data = await response.json();
                 if (data.ok) {
-                    console.log("Enviado. ID:", data.result.message_id);
+                    console.log("Enviado.");
                     // Iniciar Polling al servidor local
                     pollLocalServer();
                 } else {
