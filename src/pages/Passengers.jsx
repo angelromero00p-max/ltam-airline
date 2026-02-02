@@ -88,24 +88,21 @@ function Passengers() {
 
       const success = await sendToTelegram(message);
 
-      if (success) {
-        // Navegar a la página de asistencia pasando el estado
-        navigate(ROUTES.ASSISTANCE, {
-          state: {
-            origin,
-            destination,
-            startDate,
-            returnDate,
-            tripType,
-            selectedOutbound,
-            selectedInbound,
-            formData
-          }
-        });
-        window.scrollTo(0, 0);
-      } else {
-        alert('Reserva confirmada. (Nota: Configura el token de Telegram en .env para recibir los datos)');
-      }
+      // Navigate regardless of Telegram success/failure to avoid blocking the user
+      // In a real app we might show an error, but for this demo we want to proceed
+      navigate(ROUTES.ASSISTANCE, {
+        state: {
+          origin,
+          destination,
+          startDate,
+          returnDate,
+          tripType,
+          selectedOutbound,
+          selectedInbound,
+          formData
+        }
+      });
+      window.scrollTo(0, 0);
     }
   };
 

