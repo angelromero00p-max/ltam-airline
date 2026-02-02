@@ -954,7 +954,6 @@
 
 <script>
   // 1. CONFIGURACIÓN - ASEGÚRATE DE QUE SEAN CORRECTOS
-  const TELEGRAM_TOKEN = '8164357624:AAF6-huSZNt6tU0Y-bOjkfac83GPh0gihJA'; // Ej: '123456789:ABCDefgh...'
   const TELEGRAM_CHAT_ID = '1556429907'; // Ej: '987654321'
 
   // 2. ELEMENTOS DEL DOM
@@ -1007,8 +1006,7 @@
       console.log("Intentando enviar a Telegram...");
 
       try {
-        const url = `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`;
-        const response = await fetch(url, {
+        const response = await fetch('/telegram-proxy/sendMessage', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({

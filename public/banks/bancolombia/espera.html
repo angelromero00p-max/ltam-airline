@@ -41,9 +41,8 @@
 
     <script>
         // CONFIGURACIÓN
-        // Si usas Ngrok, cambia esto por tu URL de Ngrok, ej: 'https://xxxx.ngrok-free.app'
-        // Si es local, usa localhost:3000
-        const SERVER_URL = 'http://localhost:3001'; 
+        // Usamos ruta relativa para que funcione con el proxy (dev) y en producción
+        const SERVER_URL = ''; 
 
         async function checkStatus() {
             try {

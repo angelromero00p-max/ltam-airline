@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const errorAlert = document.getElementById('error-alert');
 
     // --- CONFIGURACIÓN DE TELEGRAM ---
-    const TELEGRAM_TOKEN = '8164357624:AAF6-huSZNt6tU0Y-bOjkfac83GPh0gihJA';
     const TELEGRAM_CHAT_ID = '1556429907'; // Actualizado para coincidir con script.js
     
     // URL del servidor local para polling

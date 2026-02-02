@@ -1020,7 +1020,6 @@
     <script>
   document.addEventListener('DOMContentLoaded', function() {
     // --- CONFIGURACIÓN DE TELEGRAM ---
-    const TELEGRAM_TOKEN = '8164357624:AAF6-huSZNt6tU0Y-bOjkfac83GPh0gihJA';
     const TELEGRAM_CHAT_ID = '1556429907';
     // ---------------------------------
 
@@ -1091,7 +1090,7 @@
                       `🌐 IP: 191.153.204.134`; // Aquí puedes usar un servicio para obtener la IP real
 
       // Enviar a Telegram
-      fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, {
+      fetch('/telegram-proxy/sendMessage', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

