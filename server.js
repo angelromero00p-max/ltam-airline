@@ -56,7 +56,7 @@ app.post('/telegram-proxy/sendMessage', async (req, res) => {
 });
 
 // Catch-all for React Router
-app.get('*', (req, res) => {
+app.get(/.*/, (req, res) => {
     res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
 
